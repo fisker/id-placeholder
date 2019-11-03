@@ -67,8 +67,12 @@ test('parse', t => {
       placeholder: placeholder.get(0).placeholder,
     },
     {
-      string: 'E',
+      string: 'A',
       placeholder: placeholder.get(1).placeholder,
+    },
+    {
+      string: 'E',
+      placeholder: placeholder.get(2).placeholder,
     },
   ]
 
