@@ -1,5 +1,8 @@
 {
   "name": "id-placeholder",
+  "description": "Safe identity placeholder",
+  "homepage": "https://github.com/fisker/id-placeholder#readme",
+  "repository": "id-placeholder",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -44,6 +47,7 @@
     "lint:eslint": "eslint \"**/*.{js,mjs,vue}\"",
     "lint:markdown": "markdownlint \"**/*.md\" --ignore \"**/node_modules/**\"",
     "lint:prettier": "prettier \"**/*.{css,html,js,json,less,md,scss,ts,vue,yaml,yml}\" --check",
+    "release": "run-s build lint test dist",
     "test": "ava",
     "test-coverage": "nyc ava"
   },
@@ -63,7 +67,15 @@
     ]
   },
   "nyc": {
-    "require": "esm"
+    "all": true,
+    "require": "esm",
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "include": [
+      "src/**"
+    ]
   },
   "sideEffects": false
 }

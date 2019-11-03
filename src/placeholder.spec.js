@@ -56,20 +56,33 @@ test('identity', t => {
 })
 
 test('parse', t => {
-  const placeholder = new Placeholder()
+  const placeholder = new Placeholder({
+    identity: 'test',
+  })
   const orignal = 'PLACEHOLDER'
 
-  const replaced = orignal
-    .replace(/L/g, placeholder.get().placeholder)
-    .replace(/E/g, placeholder.get().placeholder)
+  const replacements = [
+    {
+      string: 'L',
+      placeholder: placeholder.get(0).placeholder,
+    },
+    {
+      string: 'E',
+      placeholder: placeholder.get(1).placeholder,
+    },
+  ]
+
+  let replaced = orignal
+  for (const {string, placeholder} of replacements) {
+    replaced = replaced.replace(new RegExp(string, 'g'), placeholder)
+  }
 
   const parsed = placeholder.parse(replaced)
 
-  const replacement = ['L', 'E']
   const restored = parsed
     .map(piece => {
       if (piece.isPlaceholder) {
-        return replacement[piece.index]
+        return replacements[piece.index].string
       }
 
       return piece.string

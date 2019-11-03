@@ -21,7 +21,8 @@ class Placeholder {
 
   get(index) {
     if (arguments.length === 0) {
-      index = this.autoIndex += 1
+      index = this.autoIndex
+      this.autoIndex += 1
     }
 
     return {
