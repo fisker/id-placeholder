@@ -34,7 +34,7 @@ class Placeholder {
 
   parse(string) {
     const regExp = new RegExp(
-      [this.prefix, this.identity, '[a-z]+', this.suffix]
+      [this.prefix, this.identity, '[a-z]+?', this.suffix]
         .map(string => `(${string})`)
         .join(''),
       'g'
