@@ -13,15 +13,15 @@ yarn add id-placeholder
 ```js
 import Placeholder from 'id-placeholder'
 
-new Placeholder().get(0)
-// -> ppllaacceehhoollddeerrwmwtarreeddlloohheeccaallpp
+new Placeholder().get(0xdeedbeef)
+// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
 //    ^^^^^^^^^^^^^^^^^^^^^^ prefix: duplicated `placeholder`
-// -> ppllaacceehhoollddeerrwmwtarreeddlloohheeccaallpp
+// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
 //                          ^^^^ identity: random 4 string
-// -> ppllaacceehhoollddeerrwmwtarreeddlloohheeccaallpp
-//                              ^ index: encoded index 0
-// -> ppllaacceehhoollddeerrwmwtarreeddlloohheeccaallpp
-// ->                            ^^^^^^^^^^^^^^^^^^^^^^ suffix: reverse of prefix
+// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
+//                              ^^^^^^^ index: encoded index `0xdeedbeef`
+// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
+// ->                                  ^^^^^^^^^^^^^^^^^^^^^^ suffix: reverse of prefix
 ```
 
 ## Api
@@ -89,8 +89,8 @@ parse string into pieces
 ```js
 const placeholder = new Placeholder()
 
-const string = `foo${placeholder.get(100)}bar`
-// -> fooppllaacceehhoollddeerrzjdxdwrreeddlloohheeccaallppbar
+const string = `foo${placeholder.get(0xdeedbeef)}bar`
+// -> fooppllaacceehhoollddeerrpqeomcunedjrreeddlloohheeccaallppbar
 
 placeholder.parse(string)
 // -> [stringPiece, placeholderPiece, stringPiece]
@@ -110,9 +110,9 @@ placeholder.parse(string)
 ```js
 {
   isPlaceholder: true,
-  index: 100,
-  encodedIndex: 'dw',
-  placeholder,
+  index: 3740122863, // 0xdeedbeef
+  encodedIndex: 'mcunedj', // encoded version 0xdeedbeef
+  placeholder, // placeholder string
   prefix,
   identity,
   suffix,
