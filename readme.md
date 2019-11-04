@@ -14,14 +14,21 @@ yarn add id-placeholder
 import Placeholder from 'id-placeholder'
 
 new Placeholder().get(0xdeedbeef)
-// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
-//    ^^^^^^^^^^^^^^^^^^^^^^ prefix: duplicated `placeholder`
-// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
-//                          ^^^^ identity: random 4 string
-// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
-//                              ^^^^^^^ index: encoded index `0xdeedbeef`
-// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
-//                                     ^^^^^^^^^^^^^^^^^^^^^^ suffix: reversed string of `prefix`
+// ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
+// ^^^^^^^^^^^^^^^^^^^^^^
+// prefix: duplicated `placeholder`
+
+// ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
+//                       ^^^^^^^^
+// identity: random 8 string
+
+// ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
+//                               ^^^^^^^^^^^^^^^^
+// index: encoded index `0xdeedbeef`, fixed length 16
+
+// ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
+//                                               ^^^^^^^^^^^^^^^^^^^^^^
+// suffix: reversed string of `prefix`
 ```
 
 ## Api
@@ -34,8 +41,6 @@ get placeholder by index
 
 ```js
 new Placeholder().get(0xdeedbeef)
-// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
-//                              ^^^^^^^ index: encoded index `0xdeedbeef`
 ```
 
 #### generate()
@@ -49,16 +54,14 @@ placeholder.generate()
 // ->
 // {
 //   index: 0,
-//   placeholder: ppllaacceehhoollddeerrwmwtarreeddlloohheeccaallpp
-//                                          ^ index: encoded index 0
+//   ...,
 // }
 
 placeholder.generate()
 // ->
 // {
 //   index: 1,
-//   placeholder: ppllaacceehhoollddeerrwmwtbrreeddlloohheeccaallpp
-//                                          ^ index: encoded index 1
+//   ...,
 // }
 ```
 
@@ -90,7 +93,7 @@ parse string into pieces
 const placeholder = new Placeholder()
 
 const string = `foo${placeholder.get(0xdeedbeef)}bar`
-// -> fooppllaacceehhoollddeerrpqeomcunedjrreeddlloohheeccaallppbar
+// -> foo...bar
 
 placeholder.parse(string)
 // -> [stringPiece, placeholderPiece, stringPiece]
@@ -111,7 +114,7 @@ placeholder.parse(string)
 {
   isPlaceholder: true,
   index: 3740122863, // 0xdeedbeef
-  encodedIndex: 'mcunedj', // encoded version 0xdeedbeef
+  encodedIndex: 'aaaaaaaaamcunedj', // encoded version 0xdeedbeef
   placeholder, // placeholder string
   prefix,
   identity,
@@ -119,7 +122,35 @@ placeholder.parse(string)
 }
 ```
 
+#### isPlaceholder(string)
+
+check is string a placeholder
+
+#### hasPlaceholder(string)
+
+check is string has a placeholder
+
+#### startsWithPlaceholder(string)
+
+check is string starts with a placeholder
+
+#### endsWithPlaceholder(string)
+
+check is string end with a placeholder
+
 #### options
+
+#### options(string)
+
+shortcut for `options.namespace`
+
+```js
+new Options('foobar')
+
+// equals to
+
+new Options({namespace: 'foobar'})
+```
 
 ##### options.namespace
 
@@ -163,4 +194,4 @@ new Placeholder({
 ##### options.identity
 
 - type: `string`
-- default: random string of 4 length
+- default: random string of 8 length

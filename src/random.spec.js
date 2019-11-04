@@ -2,6 +2,6 @@ import test from 'ava'
 import random from './random'
 
 test('main', t => {
-  const id = random()
-  t.true(/^[a-z]{4}$/.test(id))
+  t.true(/^[a-z]{1}$/.test(random(1)))
+  t.true(/^[a-z]{10}$/.test(random(10)))
 })

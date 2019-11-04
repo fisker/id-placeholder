@@ -1,7 +1,20 @@
 import test from 'ava'
+import {FIXED_IDENTITY_LENGTH} from './constants'
 import {encode} from './number'
 import {duplicate, reverse} from './string'
 import Placeholder from './placeholder'
+
+test('alphabets check', t => {
+  t.throws(() => new Placeholder('A'), RangeError)
+  t.throws(() => new Placeholder({namespace: '1'}), RangeError)
+  t.throws(() => new Placeholder({prefix: '$'}), RangeError)
+  t.throws(() => new Placeholder({suffix: '-'}), RangeError)
+  t.throws(() => new Placeholder({identity: '-'}), RangeError)
+})
+
+test('options(string)', t => {
+  t.is(new Placeholder('foo').prefix, duplicate('foo'))
+})
 
 test('options.prefix', t => {
   t.is(new Placeholder().prefix, duplicate('placeholder'))
@@ -46,7 +59,7 @@ test('options.suffix', t => {
 })
 
 test('options.identity', t => {
-  t.true(/^[a-z]{4}$/.test(new Placeholder().identity))
+  t.true(new Placeholder().identity.length === FIXED_IDENTITY_LENGTH)
 
   t.is(
     new Placeholder({
@@ -77,11 +90,13 @@ test('generate()', t => {
   t.deepEqual(placeholder.generate(), {
     ...placeholder,
     index: 0,
+    encodedIndex: encode(0),
     placeholder: encode(0),
   })
   t.deepEqual(placeholder.generate(), {
     ...placeholder,
     index: 1,
+    encodedIndex: encode(1),
     placeholder: encode(1),
   })
 
@@ -92,6 +107,7 @@ test('generate()', t => {
   t.deepEqual(placeholder.generate(), {
     ...placeholder,
     index: 10002,
+    encodedIndex: encode(10002),
     placeholder: encode(10002),
   })
 })
@@ -132,6 +148,10 @@ test('parse()', t => {
   ]
 
   for (const fixture of fixtures) {
-    t.deepEqual(parse(fixture), fixture)
+    t.deepEqual(
+      parse(fixture),
+      fixture,
+      `parse failed on fixture: ${JSON.stringify(fixture)}`
+    )
   }
 })

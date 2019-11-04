@@ -1,3 +1,5 @@
+import {FIXED_NUMBER_LENGTH} from './constants'
+
 const digits = 'abcdefghijklmnopqrstuvwxyz'
 
 const base = digits.length
@@ -8,6 +10,7 @@ const encode = number =>
     .split('')
     .map(digit => digits[parseInt(digit, base)])
     .join('')
+    .padStart(FIXED_NUMBER_LENGTH, 'a')
 
 const decode = string =>
   parseInt(
