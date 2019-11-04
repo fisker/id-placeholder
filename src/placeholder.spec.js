@@ -64,7 +64,7 @@ test('get()', t => {
   })
 
   t.is(placeholder.get(0), encode(0))
-  t.is(placeholder.get(999), encode(999))
+  t.is(placeholder.get(0xdeedbeef), encode(0xdeedbeef))
 })
 
 test('generate()', t => {
