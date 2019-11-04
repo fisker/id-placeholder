@@ -21,7 +21,7 @@ new Placeholder().get(0xdeedbeef)
 // -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
 //                              ^^^^^^^ index: encoded index `0xdeedbeef`
 // -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
-// ->                                  ^^^^^^^^^^^^^^^^^^^^^^ suffix: reverse of prefix
+// ->                                  ^^^^^^^^^^^^^^^^^^^^^^ suffix: reversed string of `prefix`
 ```
 
 ## Api
@@ -33,9 +33,9 @@ new Placeholder().get(0xdeedbeef)
 get placeholder by index
 
 ```js
-new Placeholder().get(0)
-// -> ppllaacceehhoollddeerrwmwtarreeddlloohheeccaallpp
-//                              ^ index: encoded index 0
+new Placeholder().get(0xdeedbeef)
+// -> ppllaacceehhoollddeerrwmwtmcunedjrreeddlloohheeccaallpp
+//                              ^^^^^^^ index: encoded index `0xdeedbeef`
 ```
 
 #### generate()
