@@ -23,10 +23,12 @@ class Placeholder {
   }
 
   generate() {
-    const placeholder = this.get(this.index)
+    const {index} = this
+    const placeholder = this.get(index)
     this.index += 1
     return {
       ...this,
+      index,
       placeholder,
     }
   }
