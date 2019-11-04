@@ -67,7 +67,6 @@
     ]
   },
   "nyc": {
-    "all": true,
     "require": "esm",
     "reporter": [
       "lcov",

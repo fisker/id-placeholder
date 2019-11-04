@@ -1,22 +1,16 @@
 import test from 'ava'
+import {encode} from './number'
+import {duplicate, reverse} from './string'
 import Placeholder from './placeholder'
 
-test('index', t => {
-  const placeholder = new Placeholder()
-
-  t.is(placeholder.get().index, 0)
-  t.is(placeholder.get().index, 1)
-  t.is(placeholder.get(5).index, 5)
-})
-
-test('prefix', t => {
-  t.is(new Placeholder().prefix, 'ppllaacceehhoollddeerr')
+test('options.prefix', t => {
+  t.is(new Placeholder().prefix, duplicate('placeholder'))
 
   t.is(
     new Placeholder({
       namespace: 'fisker',
     }).prefix,
-    'ffiisskkeerr'
+    duplicate('fisker')
   )
   t.is(
     new Placeholder({
@@ -26,14 +20,14 @@ test('prefix', t => {
   )
 })
 
-test('suffix', t => {
+test('options.suffix', t => {
   t.is(new Placeholder().suffix, 'rreeddlloohheeccaallpp')
 
   t.is(
     new Placeholder({
       namespace: 'fisker',
     }).suffix,
-    'rreekkssiiff'
+    reverse(duplicate('fisker'))
   )
 
   t.is(
@@ -42,9 +36,16 @@ test('suffix', t => {
     }).suffix,
     'fisker'
   )
+
+  t.is(
+    new Placeholder({
+      prefix: 'fisker',
+    }).suffix,
+    reverse('fisker')
+  )
 })
 
-test('identity', t => {
+test('options.identity', t => {
   t.true(/^[a-z]{4}$/.test(new Placeholder().identity))
 
   t.is(
@@ -55,50 +56,82 @@ test('identity', t => {
   )
 })
 
-test('parse', t => {
+test('get()', t => {
+  const placeholder = new Placeholder({
+    prefix: '',
+    suffix: '',
+    identity: '',
+  })
+
+  t.is(placeholder.get(0), encode(0))
+  t.is(placeholder.get(999), encode(999))
+})
+
+test('generate()', t => {
+  const placeholder = new Placeholder({
+    prefix: '',
+    suffix: '',
+    identity: '',
+  })
+
+  t.deepEqual(placeholder.generate(), {
+    ...placeholder,
+    index: 0,
+    placeholder: encode(0),
+  })
+  t.deepEqual(placeholder.generate(), {
+    ...placeholder,
+    index: 1,
+    placeholder: encode(1),
+  })
+
+  for (let index = 0; index < 1e4; index++) {
+    placeholder.generate()
+  }
+
+  t.deepEqual(placeholder.generate(), {
+    ...placeholder,
+    index: 10002,
+    placeholder: encode(10002),
+  })
+})
+
+test('reset()', t => {
+  const placeholder = new Placeholder()
+
+  t.is(placeholder.generate().index, 0)
+  placeholder.reset()
+  t.is(placeholder.generate().index, 0)
+})
+
+test('parse()', t => {
   const placeholder = new Placeholder({
     identity: 'test',
   })
-  const orignal = 'PLACEHOLDER'
 
-  const replacements = [
-    {
-      string: 'L',
-      placeholder: placeholder.get(0).placeholder,
-    },
-    {
-      string: 'A',
-      placeholder: placeholder.get(1).placeholder,
-    },
-    {
-      string: 'E',
-      placeholder: placeholder.get(2).placeholder,
-    },
-  ]
-
-  let replaced = orignal
-  for (const {string, placeholder} of replacements) {
-    replaced = replaced.replace(new RegExp(string, 'g'), placeholder)
+  const parse = array => {
+    const string = array
+      .map(item => (typeof item === 'number' ? placeholder.get(item) : item))
+      .join('')
+    return placeholder
+      .parse(string)
+      .map(({isPlaceholder, string, index}) => (isPlaceholder ? index : string))
   }
 
-  const parsed = placeholder.parse(replaced)
+  const fixtures = [
+    [0],
+    [0, 0],
+    [0, 0, '_'],
+    [0, '_', 0],
+    ['_', 0, 0],
+    [1],
+    [1, 2],
+    [1, 2, '_'],
+    [1, '_', 2],
+    ['_', 1, 2],
+  ]
 
-  const restored = parsed
-    .map(piece => {
-      if (piece.isPlaceholder) {
-        return replacements[piece.index].string
-      }
-
-      return piece.string
-    })
-    .join('')
-
-  t.is(restored, orignal)
-
-  t.snapshot({
-    orignal,
-    restored,
-    replaced,
-    parsed,
-  })
+  for (const fixture of fixtures) {
+    t.deepEqual(parse(fixture), fixture)
+  }
 })

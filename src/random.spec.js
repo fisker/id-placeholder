@@ -1,7 +1,7 @@
 import test from 'ava'
-import identity from './identity'
+import random from './random'
 
 test('main', t => {
-  const id = identity()
+  const id = random()
   t.true(/^[a-z]{4}$/.test(id))
 })

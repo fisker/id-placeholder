@@ -1,35 +1,39 @@
 import {encode, decode} from './number'
-import identity from './identity'
+import random from './random'
+import {duplicate, reverse} from './string'
 
 class Placeholder {
   constructor(options) {
-    options = {
-      namespace: 'placeholder',
-      identity: identity(),
-      ...options,
-    }
+    const {
+      namespace = 'placeholder',
+      prefix = duplicate(namespace),
+      suffix = reverse(prefix),
+      identity = random(),
+    } = options || {}
 
-    const repeatedNS = options.namespace
-      .split('')
-      .map(character => character.repeat(2))
+    this.prefix = prefix
+    this.suffix = suffix
+    this.identity = identity
 
-    this.prefix = options.prefix || repeatedNS.join('')
-    this.suffix = options.suffix || repeatedNS.reverse().join('')
-    this.identity = options.identity
-    this.autoIndex = 0
+    this.reset()
   }
 
   get(index) {
-    if (arguments.length === 0) {
-      index = this.autoIndex
-      this.autoIndex += 1
-    }
+    return this.prefix + this.identity + encode(index) + this.suffix
+  }
 
+  generate() {
+    const placeholder = this.get(this.index)
+    this.index += 1
     return {
       ...this,
-      index,
-      placeholder: this.prefix + this.identity + encode(index) + this.suffix,
+      placeholder,
     }
+  }
+
+  reset() {
+    this.index = 0
+    return this
   }
 
   parse(string) {

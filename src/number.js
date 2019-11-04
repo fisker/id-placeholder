@@ -18,4 +18,4 @@ const decode = string =>
     base
   )
 
-export {digits, encode, decode}
+export {digits, encode, decode, base}
