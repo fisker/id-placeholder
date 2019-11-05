@@ -140,15 +140,13 @@ check is string end with a placeholder
 
 #### options
 
-#### options(string)
+##### options(string)
 
 shortcut for `options.namespace`
 
 ```js
 new Options('foobar')
-
 // equals to
-
 new Options({namespace: 'foobar'})
 ```
 
@@ -163,10 +161,7 @@ new Options({namespace: 'foobar'})
 - default: duplicate string of namespace
 
 ```js
-new Placeholder({
-  namespace: 'foo',
-}).prefix
-
+new Placeholder({namespace: 'foo'}).prefix
 // -> 'ffoooo'
 ```
 
@@ -176,18 +171,12 @@ new Placeholder({
 - default: reversed string of prefix
 
 ```js
-new Placeholder({
-  prefix: 'foo',
-}).suffix
-
+new Placeholder({prefix: 'foo'}).suffix
 // -> 'oof'
 ```
 
 ```js
-new Placeholder({
-  namespace: 'foo',
-}).suffix
-
+new Placeholder({namespace: 'foo'}).suffix
 // -> 'ooooff'
 ```
 
