@@ -8,7 +8,8 @@ const base = digits.length
 // TODO: use padStart(encodedNumber, 'a')
 const toFixedLength = encodedNumber =>
   (
-    Array.from({length: FIXED_NUMBER_LENGTH}, () => 'a').join() + encodedNumber
+    Array.from({length: FIXED_NUMBER_LENGTH}, () => 'a').join('') +
+    encodedNumber
   ).slice(-FIXED_NUMBER_LENGTH)
 
 const encode = number =>
