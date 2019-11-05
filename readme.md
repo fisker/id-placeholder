@@ -16,19 +16,19 @@ import Placeholder from 'id-placeholder'
 new Placeholder().get(0xdeedbeef)
 // ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
 // ^^^^^^^^^^^^^^^^^^^^^^
-// prefix: duplicated `placeholder`
+// |> `prefix`: duplicated `"placeholder"`
 
 // ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
 //                       ^^^^^^^^
-// identity: random 8 string
+//                       |> `identity`: random 8 string
 
 // ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
 //                               ^^^^^^^^^^^^^^^^
-// index: encoded index `0xdeedbeef`, fixed length 16
+//                               |> `index`: encoded index `0xdeedbeef`, fixed length 16
 
 // ppllaacceehhoollddeerraargkoahaaaaaaaaamcunedjrreeddlloohheeccaallpp
 //                                               ^^^^^^^^^^^^^^^^^^^^^^
-// suffix: reversed string of `prefix`
+//                                               |> `suffix`: reversed string of `prefix`
 ```
 
 ## Api
