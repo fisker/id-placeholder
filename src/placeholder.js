@@ -39,7 +39,7 @@ class Placeholder {
       !isAlphabets(identity)
     ) {
       throw new RangeError(
-        'only alphabets(a-z) are allowed in both `namespace`, `prefix`, `suffix` and `identity`'
+        'only alphabets(a-z) are allowed in `namespace`, `prefix`, `suffix` and `identity`'
       )
     }
 
@@ -89,46 +89,38 @@ class Placeholder {
   }
 
   parse(string) {
-    const regExp = new RegExp(
-      getPlaceholderRegExpParts(this)
-        .map(string => `(${string})`)
-        .join(''),
-      'g'
+    const splitRegExp = new RegExp(
+      `(${getPlaceholderRegExpParts(this).join('')})`
     )
-    const pieces = []
-    let lastIndex = 0
-    while (lastIndex < string.length) {
-      const match = regExp.exec(string)
+    const matchRegExp = new RegExp(
+      `^${getPlaceholderRegExpParts(this)
+        .map(string => `(${string})`)
+        .join('')}$`
+    )
 
-      if (!match) {
-        pieces.push({
-          isPlaceholder: false,
-          string: string.slice(lastIndex, string.length),
-        })
-        break
-      }
+    return string
+      .split(splitRegExp)
+      .filter(Boolean)
+      .map(part => {
+        const match = part.match(matchRegExp)
+        if (!match) {
+          return {
+            isPlaceholder: false,
+            string: part,
+          }
+        }
 
-      const [placeholder, prefix, identity, encodedIndex, suffix] = match
-      const {index} = match
-      if (index !== lastIndex) {
-        pieces.push({
-          isPlaceholder: false,
-          string: string.slice(lastIndex, index),
-        })
-      }
-      pieces.push({
-        isPlaceholder: true,
-        placeholder,
-        prefix,
-        identity,
-        suffix,
-        encodedIndex,
-        index: decode(encodedIndex),
+        const [placeholder, prefix, identity, encodedIndex, suffix] = match
+        return {
+          isPlaceholder: true,
+          placeholder,
+          prefix,
+          identity,
+          suffix,
+          encodedIndex,
+          index: decode(encodedIndex),
+        }
       })
-      lastIndex = regExp.lastIndex
-    }
-
-    return pieces
   }
 }
 
