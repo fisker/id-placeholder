@@ -96,17 +96,26 @@ class Placeholder {
         .join('')
     )
     const texts = string.split(splitRegExp)
-    const pieces = []
+    return texts.reduce((pieces, part, index, texts) => {
+      const groupIndex = index % (CAPTURE_SIZE + 1)
 
-    for (let index = 0; index < texts.length; ) {
-      const isPlaceholder = index % (CAPTURE_SIZE + 1) !== 0
-      if (isPlaceholder) {
+      // string
+      if (groupIndex === 0) {
+        if (part) {
+          pieces.push({
+            isPlaceholder: false,
+            string: part,
+          })
+        }
+      }
+
+      // placeholder
+      if (groupIndex === 1) {
         const parts = texts.slice(index, index + CAPTURE_SIZE)
         const placeholder = parts.join('')
         const [prefix, identity, encodedIndex, suffix] = parts
-
         pieces.push({
-          isPlaceholder,
+          isPlaceholder: true,
           placeholder,
           prefix,
           identity,
@@ -114,20 +123,10 @@ class Placeholder {
           encodedIndex,
           index: decode(encodedIndex),
         })
-        index += CAPTURE_SIZE
-      } else {
-        const string = texts[index]
-
-        if (string) {
-          pieces.push({
-            isPlaceholder,
-            string,
-          })
-        }
-        index += 1
       }
-    }
-    return pieces
+
+      return pieces
+    }, [])
   }
 }
 
