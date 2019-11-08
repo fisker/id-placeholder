@@ -3,7 +3,7 @@
   "description": "Safe identity placeholder",
   "homepage": "https://github.com/fisker/id-placeholder#readme",
   "repository": "id-placeholder",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "files": [
