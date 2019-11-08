@@ -89,31 +89,28 @@ class Placeholder {
   }
 
   parse(string) {
-    const CAPTURE_SIZE = 4
+    const CAPTURE_SIZE = 5
     const splitRegExp = new RegExp(
-      getPlaceholderRegExpParts(this)
+      `(${getPlaceholderRegExpParts(this)
         .map(string => `(${string})`)
-        .join('')
+        .join('')})`
     )
     const texts = string.split(splitRegExp)
     return texts.reduce((pieces, part, index, texts) => {
       const groupIndex = index % (CAPTURE_SIZE + 1)
 
       // string
-      if (groupIndex === 0) {
-        if (part) {
-          pieces.push({
-            isPlaceholder: false,
-            string: part,
-          })
-        }
+      if (groupIndex === 0 && part) {
+        pieces.push({
+          isPlaceholder: false,
+          string: part,
+        })
       }
 
       // placeholder
       if (groupIndex === 1) {
         const parts = texts.slice(index, index + CAPTURE_SIZE)
-        const placeholder = parts.join('')
-        const [prefix, identity, encodedIndex, suffix] = parts
+        const [placeholder, prefix, identity, encodedIndex, suffix] = parts
         pieces.push({
           isPlaceholder: true,
           placeholder,
