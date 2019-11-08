@@ -39,7 +39,7 @@ class Placeholder {
       !isAlphabets(identity)
     ) {
       throw new RangeError(
-        'only alphabets(a-z) are allowed in both `namespace`, `prefix`, `suffix` and `identity`'
+        'only alphabets(a-z) are allowed in `namespace`, `prefix`, `suffix` and `identity`'
       )
     }
 
@@ -89,46 +89,44 @@ class Placeholder {
   }
 
   parse(string) {
-    const regExp = new RegExp(
+    const CAPTURE_SIZE = 4
+    const splitRegExp = new RegExp(
       getPlaceholderRegExpParts(this)
         .map(string => `(${string})`)
-        .join(''),
-      'g'
+        .join('')
     )
-    const pieces = []
-    let lastIndex = 0
-    while (lastIndex < string.length) {
-      const match = regExp.exec(string)
+    const texts = string.split(splitRegExp)
+    return texts.reduce((pieces, part, index, texts) => {
+      const groupIndex = index % (CAPTURE_SIZE + 1)
 
-      if (!match) {
-        pieces.push({
-          isPlaceholder: false,
-          string: string.slice(lastIndex, string.length),
-        })
-        break
+      // string
+      if (groupIndex === 0) {
+        if (part) {
+          pieces.push({
+            isPlaceholder: false,
+            string: part,
+          })
+        }
       }
 
-      const [placeholder, prefix, identity, encodedIndex, suffix] = match
-      const {index} = match
-      if (index !== lastIndex) {
+      // placeholder
+      if (groupIndex === 1) {
+        const parts = texts.slice(index, index + CAPTURE_SIZE)
+        const placeholder = parts.join('')
+        const [prefix, identity, encodedIndex, suffix] = parts
         pieces.push({
-          isPlaceholder: false,
-          string: string.slice(lastIndex, index),
+          isPlaceholder: true,
+          placeholder,
+          prefix,
+          identity,
+          suffix,
+          encodedIndex,
+          index: decode(encodedIndex),
         })
       }
-      pieces.push({
-        isPlaceholder: true,
-        placeholder,
-        prefix,
-        identity,
-        suffix,
-        encodedIndex,
-        index: decode(encodedIndex),
-      })
-      lastIndex = regExp.lastIndex
-    }
 
-    return pieces
+      return pieces
+    }, [])
   }
 }
 
