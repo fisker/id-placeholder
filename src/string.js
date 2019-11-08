@@ -1,3 +1,5 @@
+import {digits, base} from './number'
+
 const duplicate = string =>
   string
     .split('')
@@ -10,4 +12,7 @@ const reverse = string =>
     .reverse()
     .join('')
 
-export {duplicate, reverse}
+const randomCharacter = () => digits[Math.floor(Math.random() * base)]
+const random = length => Array.from({length}, randomCharacter).join('')
+
+export {duplicate, reverse, random}
