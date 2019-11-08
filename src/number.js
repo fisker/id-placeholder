@@ -1,16 +1,13 @@
-import {FIXED_NUMBER_LENGTH} from './constants'
-
-const digits = 'abcdefghijklmnopqrstuvwxyz'
-
-const base = digits.length
+import {
+  ALPHABETS as digits,
+  ALPHABETS_LENGTH as base,
+  FIXED_NUMBER_LENGTH as length,
+} from './constants'
 
 // temp solution for prettier on node 4
 // TODO: use padStart(encodedNumber, 'a')
 const toFixedLength = encodedNumber =>
-  (
-    Array.from({length: FIXED_NUMBER_LENGTH}, () => 'a').join('') +
-    encodedNumber
-  ).slice(-FIXED_NUMBER_LENGTH)
+  (Array.from({length}, () => 'a').join('') + encodedNumber).slice(-length)
 
 const encode = number =>
   toFixedLength(

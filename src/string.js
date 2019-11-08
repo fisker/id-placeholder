@@ -1,4 +1,4 @@
-import {digits, base} from './number'
+import {ALPHABETS as seed, ALPHABETS_LENGTH as length} from './constants'
 
 const duplicate = string =>
   string
@@ -12,7 +12,7 @@ const reverse = string =>
     .reverse()
     .join('')
 
-const randomCharacter = () => digits[Math.floor(Math.random() * base)]
+const randomCharacter = () => seed[Math.floor(Math.random() * length)]
 const random = length => Array.from({length}, randomCharacter).join('')
 
 export {duplicate, reverse, random}
