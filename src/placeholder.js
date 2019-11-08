@@ -89,38 +89,45 @@ class Placeholder {
   }
 
   parse(string) {
+    const CAPTURE_SIZE = 4
     const splitRegExp = new RegExp(
-      `(${getPlaceholderRegExpParts(this).join('')})`
-    )
-    const matchRegExp = new RegExp(
-      `^${getPlaceholderRegExpParts(this)
+      getPlaceholderRegExpParts(this)
         .map(string => `(${string})`)
-        .join('')}$`
+        .join('')
     )
+    const texts = string.split(splitRegExp)
+    const pieces = []
 
-    return string
-      .split(splitRegExp)
-      .filter(Boolean)
-      .map(part => {
-        const match = part.match(matchRegExp)
-        if (!match) {
-          return {
-            isPlaceholder: false,
-            string: part,
-          }
-        }
+    for (let index = 0; index < texts.length; ) {
+      const isPlaceholder = index % (CAPTURE_SIZE + 1) !== 0
+      if (isPlaceholder) {
+        const parts = texts.slice(index, index + CAPTURE_SIZE)
+        const placeholder = parts.join('')
+        const [prefix, identity, encodedIndex, suffix] = parts
 
-        const [placeholder, prefix, identity, encodedIndex, suffix] = match
-        return {
-          isPlaceholder: true,
+        pieces.push({
+          isPlaceholder,
           placeholder,
           prefix,
           identity,
           suffix,
           encodedIndex,
           index: decode(encodedIndex),
+        })
+        index += CAPTURE_SIZE
+      } else {
+        const string = texts[index]
+
+        if (string) {
+          pieces.push({
+            isPlaceholder,
+            string,
+          })
         }
-      })
+        index += 1
+      }
+    }
+    return pieces
   }
 }
 
