@@ -145,9 +145,9 @@ check is string end with a placeholder
 shortcut for `options.namespace`
 
 ```js
-new Options('foobar')
+new Placeholder('foobar')
 // equals to
-new Options({namespace: 'foobar'})
+new Placeholder({namespace: 'foobar'})
 ```
 
 ##### options.namespace
