@@ -6,6 +6,7 @@ import {
 
 let toFixedLength
 
+/* istanbul ignore else */
 if (String.prototype.padStart) {
   toFixedLength = string => string.padStart(length, digits[0])
 } else {
