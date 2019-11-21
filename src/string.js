@@ -14,5 +14,6 @@ const reverse = string =>
 
 const randomCharacter = () => seed[Math.floor(Math.random() * length)]
 const random = length => Array.from({length}, randomCharacter).join('')
+const wrap = (string, prefix, suffix = prefix) => prefix + string + suffix
 
-export {duplicate, reverse, random}
+export {duplicate, reverse, random, wrap}
