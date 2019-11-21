@@ -85,9 +85,9 @@ placeholder.generate().index
 // -> 0
 ```
 
-#### parse(string)
+#### split(string)
 
-parse string into pieces
+split string into pieces
 
 ```js
 const placeholder = new Placeholder()
@@ -95,11 +95,11 @@ const placeholder = new Placeholder()
 const string = `foo${placeholder.get(0xdeedbeef)}bar`
 // -> foo...bar
 
-placeholder.parse(string)
-// -> [stringPiece, placeholderPiece, stringPiece]
+placeholder.split(string)
+// -> [StringPiece, PlaceholderPiece, StringPiece]
 ```
 
-##### stringPiece
+##### StringPiece
 
 ```js
 {
@@ -108,7 +108,7 @@ placeholder.parse(string)
 }
 ```
 
-##### placeholderPiece
+##### PlaceholderPiece
 
 ```js
 {

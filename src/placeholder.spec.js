@@ -120,17 +120,17 @@ test('reset()', t => {
   t.is(placeholder.generate().index, 0)
 })
 
-test('parse()', t => {
+test('split()', t => {
   const placeholder = new Placeholder({
     identity: 'test',
   })
 
-  const parse = array => {
+  const split = array => {
     const string = array
       .map(item => (typeof item === 'number' ? placeholder.get(item) : item))
       .join('')
     return placeholder
-      .parse(string)
+      .split(string)
       .map(({isPlaceholder, string, index}) => (isPlaceholder ? index : string))
   }
 
@@ -149,7 +149,7 @@ test('parse()', t => {
 
   for (const fixture of fixtures) {
     t.deepEqual(
-      parse(fixture),
+      split(fixture),
       fixture,
       `parse failed on fixture: ${JSON.stringify(fixture)}`
     )

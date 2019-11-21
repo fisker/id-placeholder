@@ -89,7 +89,7 @@ class Placeholder {
     return testResult(this, string, '', '$')
   }
 
-  parse(string) {
+  split(string) {
     const CAPTURE_SIZE = 5
     const splitRegExp = new RegExp(
       captureRegExpGroup(
