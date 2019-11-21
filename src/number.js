@@ -4,19 +4,13 @@ import {
   FIXED_NUMBER_LENGTH as length,
 } from './constants'
 
-// temp solution for prettier on node 4
-// TODO: use padStart(encodedNumber, 'a')
-const toFixedLength = encodedNumber =>
-  (Array.from({length}, () => 'a').join('') + encodedNumber).slice(-length)
-
 const encode = number =>
-  toFixedLength(
-    number
-      .toString(base)
-      .split('')
-      .map(digit => digits[parseInt(digit, base)])
-      .join('')
-  )
+  number
+    .toString(base)
+    .split('')
+    .map(digit => digits[parseInt(digit, base)])
+    .join('')
+    .padStart(length, digits[0])
 
 const decode = string =>
   parseInt(
