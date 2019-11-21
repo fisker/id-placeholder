@@ -4,13 +4,25 @@ import {
   FIXED_NUMBER_LENGTH as length,
 } from './constants'
 
-const encode = number =>
-  number
-    .toString(base)
-    .split('')
-    .map(digit => digits[parseInt(digit, base)])
+let toFixedLength
+
+if (String.prototype.padStart) {
+  toFixedLength = string => string.padStart(length, digits[0])
+} else {
+  const PAD_STRING = Array.from({length})
+    .fill(digits[0])
     .join('')
-    .padStart(length, digits[0])
+  toFixedLength = string => (PAD_STRING + string).slice(-length)
+}
+
+const encode = number =>
+  toFixedLength(
+    number
+      .toString(base)
+      .split('')
+      .map(digit => digits[parseInt(digit, base)])
+      .join('')
+  )
 
 const decode = string =>
   parseInt(
