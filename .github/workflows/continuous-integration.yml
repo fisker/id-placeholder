@@ -8,8 +8,6 @@ on:
 
 jobs:
   lint:
-    strategy:
-      fail-fast: false
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +31,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        PLATFORM:
+        os:
           - ubuntu-latest
           # - macos-latest
           # - windows-latest
@@ -47,9 +45,9 @@ jobs:
         #   - PLATFORM: windows-latest
         #     NODE: 12.x
 
-    name: Test on node ${{ matrix.NODE }} and ${{ matrix.PLATFORM }}
+    name: Test on node ${{ matrix.NODE }} and ${{ matrix.os }}
 
-    runs-on: ${{ matrix.PLATFORM }}
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -69,7 +67,14 @@ jobs:
       - name: Run Test
         run: yarn test-coverage
 
-      - name: Upload Coverage
+      - name: Upload Coverage Parallel
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+
+      - name: Upload Coverage Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
