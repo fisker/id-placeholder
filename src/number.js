@@ -4,17 +4,8 @@ import {
   FIXED_NUMBER_LENGTH as length,
 } from './constants'
 
-let toFixedLength
-
-/* istanbul ignore else */
-if (String.prototype.padStart) {
-  toFixedLength = string => string.padStart(length, digits[0])
-} else {
-  const PAD_STRING = Array.from({length})
-    .fill(digits[0])
-    .join('')
-  toFixedLength = string => (PAD_STRING + string).slice(-length)
-}
+const PAD_STRING = digits[0].repeat(length)
+const toFixedLength = string => (PAD_STRING + string).slice(-length)
 
 const encode = number =>
   toFixedLength(
