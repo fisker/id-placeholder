@@ -41,6 +41,22 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "ava": {
+    "require": [
+      "esm"
+    ],
+    "verbose": true
+  },
+  "nyc": {
+    "include": [
+      "src/**"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "require": "esm"
+  },
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
     "@fisker/commitlint-config": "1.1.4",
@@ -65,21 +81,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "ava": {
-    "verbose": true,
-    "require": [
-      "esm"
-    ]
-  },
-  "nyc": {
-    "require": "esm",
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "include": [
-      "src/**"
-    ]
   }
 }
