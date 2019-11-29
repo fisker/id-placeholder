@@ -10,7 +10,7 @@ test('reverse', t => {
 })
 
 test('random', t => {
-  t.true(/^[a-z]{1}$/.test(random(1)))
+  t.true(/^[a-z]$/.test(random(1)))
   t.true(/^[a-z]{10}$/.test(random(10)))
 })
 
