@@ -5,11 +5,11 @@ import {duplicate, reverse} from './string'
 import Placeholder from './placeholder'
 
 test('alphabets check', t => {
-  t.throws(() => new Placeholder('A'), RangeError)
-  t.throws(() => new Placeholder({namespace: '1'}), RangeError)
-  t.throws(() => new Placeholder({prefix: '$'}), RangeError)
-  t.throws(() => new Placeholder({suffix: '-'}), RangeError)
-  t.throws(() => new Placeholder({identity: '-'}), RangeError)
+  t.throws(() => new Placeholder('A'), {instanceOf: RangeError})
+  t.throws(() => new Placeholder({namespace: '1'}), {instanceOf: RangeError})
+  t.throws(() => new Placeholder({prefix: '$'}), {instanceOf: RangeError})
+  t.throws(() => new Placeholder({suffix: '-'}), {instanceOf: RangeError})
+  t.throws(() => new Placeholder({identity: '-'}), {instanceOf: RangeError})
 })
 
 test('options(string)', t => {
