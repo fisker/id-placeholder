@@ -3,7 +3,11 @@
   "version": "2.0.1",
   "description": "Safe identity placeholder",
   "homepage": "https://github.com/fisker/id-placeholder#readme",
-  "repository": "id-placeholder",
+  "bugs": {
+    "url": "https://github.com/fisker/id-placeholder/issues"
+  },
+  "repository": "fisker/id-placeholder",
+  "funding": "https://github.com/fisker/id-placeholder?sponsor=1",
   "license": "MIT",
   "author": {
     "name": "fisker Cheung",
