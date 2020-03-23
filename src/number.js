@@ -5,22 +5,22 @@ import {
 } from './constants'
 
 const PAD_STRING = digits[0].repeat(length)
-const toFixedLength = string => (PAD_STRING + string).slice(-length)
+const toFixedLength = (string) => (PAD_STRING + string).slice(-length)
 
-const encode = number =>
+const encode = (number) =>
   toFixedLength(
     number
       .toString(base)
       .split('')
-      .map(digit => digits[parseInt(digit, base)])
+      .map((digit) => digits[parseInt(digit, base)])
       .join('')
   )
 
-const decode = string =>
+const decode = (string) =>
   parseInt(
     string
       .split('')
-      .map(digit => digits.indexOf(digit).toString(base))
+      .map((digit) => digits.indexOf(digit).toString(base))
       .join(''),
     base
   )

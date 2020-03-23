@@ -4,7 +4,7 @@ import {encode} from './number'
 import {duplicate, reverse} from './string'
 import Placeholder from './placeholder'
 
-test('alphabets check', t => {
+test('alphabets check', (t) => {
   t.throws(() => new Placeholder('A'), {instanceOf: RangeError})
   t.throws(() => new Placeholder({namespace: '1'}), {instanceOf: RangeError})
   t.throws(() => new Placeholder({prefix: '$'}), {instanceOf: RangeError})
@@ -12,11 +12,11 @@ test('alphabets check', t => {
   t.throws(() => new Placeholder({identity: '-'}), {instanceOf: RangeError})
 })
 
-test('options(string)', t => {
+test('options(string)', (t) => {
   t.is(new Placeholder('foo').prefix, duplicate('foo'))
 })
 
-test('options.prefix', t => {
+test('options.prefix', (t) => {
   t.is(new Placeholder().prefix, duplicate('placeholder'))
 
   t.is(
@@ -33,7 +33,7 @@ test('options.prefix', t => {
   )
 })
 
-test('options.suffix', t => {
+test('options.suffix', (t) => {
   t.is(new Placeholder().suffix, 'rreeddlloohheeccaallpp')
 
   t.is(
@@ -58,7 +58,7 @@ test('options.suffix', t => {
   )
 })
 
-test('options.identity', t => {
+test('options.identity', (t) => {
   t.true(new Placeholder().identity.length === FIXED_IDENTITY_LENGTH)
 
   t.is(
@@ -69,7 +69,7 @@ test('options.identity', t => {
   )
 })
 
-test('get()', t => {
+test('get()', (t) => {
   const placeholder = new Placeholder({
     prefix: '',
     suffix: '',
@@ -80,7 +80,7 @@ test('get()', t => {
   t.is(placeholder.get(0xdeedbeef), encode(0xdeedbeef))
 })
 
-test('generate()', t => {
+test('generate()', (t) => {
   const placeholder = new Placeholder({
     prefix: '',
     suffix: '',
@@ -112,7 +112,7 @@ test('generate()', t => {
   })
 })
 
-test('reset()', t => {
+test('reset()', (t) => {
   const placeholder = new Placeholder()
 
   t.is(placeholder.generate().index, 0)
@@ -120,14 +120,14 @@ test('reset()', t => {
   t.is(placeholder.generate().index, 0)
 })
 
-test('split()', t => {
+test('split()', (t) => {
   const placeholder = new Placeholder({
     identity: 'test',
   })
 
-  const split = array => {
+  const split = (array) => {
     const string = array
-      .map(item => (typeof item === 'number' ? placeholder.get(item) : item))
+      .map((item) => (typeof item === 'number' ? placeholder.get(item) : item))
       .join('')
     return placeholder
       .split(string)

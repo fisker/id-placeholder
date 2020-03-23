@@ -4,7 +4,7 @@ import Placeholder from './placeholder'
 const placeholder = new Placeholder()
 const anotherPlaceholder = new Placeholder()
 
-test('isPlaceholder', t => {
+test('isPlaceholder', (t) => {
   t.true(placeholder.isPlaceholder(placeholder.get(0xdeedbeef)))
   t.false(placeholder.isPlaceholder(`foo${placeholder.get(0xdeedbeef)}bar`))
   t.false(placeholder.isPlaceholder(`foo${placeholder.get(0xdeedbeef)}`))
@@ -17,7 +17,7 @@ test('isPlaceholder', t => {
   t.false(placeholder.isPlaceholder(anotherPlaceholder.get(0xdeedbeef)))
 })
 
-test('hasPlaceholder', t => {
+test('hasPlaceholder', (t) => {
   t.true(placeholder.hasPlaceholder(placeholder.get(0xdeedbeef)))
   t.true(placeholder.hasPlaceholder(`foo${placeholder.get(0xdeedbeef)}bar`))
   t.true(placeholder.hasPlaceholder(`foo${placeholder.get(0xdeedbeef)}`))
@@ -29,7 +29,7 @@ test('hasPlaceholder', t => {
     )
   )
 })
-test('startsWithPlaceholder', t => {
+test('startsWithPlaceholder', (t) => {
   t.true(placeholder.startsWithPlaceholder(placeholder.get(0xdeedbeef)))
   t.false(
     placeholder.startsWithPlaceholder(`foo${placeholder.get(0xdeedbeef)}bar`)
@@ -50,7 +50,7 @@ test('startsWithPlaceholder', t => {
     )
   )
 })
-test('endsWithPlaceholder', t => {
+test('endsWithPlaceholder', (t) => {
   t.true(placeholder.endsWithPlaceholder(placeholder.get(0xdeedbeef)))
   t.false(
     placeholder.endsWithPlaceholder(`foo${placeholder.get(0xdeedbeef)}bar`)

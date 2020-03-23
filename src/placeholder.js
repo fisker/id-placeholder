@@ -2,7 +2,7 @@ import {FIXED_NUMBER_LENGTH, FIXED_IDENTITY_LENGTH} from './constants'
 import {encode, decode} from './number'
 import {duplicate, reverse, random, wrap} from './string'
 
-const getPlaceholderRegExpParts = placeholder => [
+const getPlaceholderRegExpParts = (placeholder) => [
   placeholder.prefix,
   placeholder.identity,
   `[a-z]{${FIXED_NUMBER_LENGTH}}`,
@@ -14,9 +14,9 @@ const testResult = (placeholder, string, prefix, suffix) =>
     `${prefix}${getPlaceholderRegExpParts(placeholder).join('')}${suffix}`
   ).test(string)
 
-const captureRegExpGroup = string => wrap(string, '(', ')')
+const captureRegExpGroup = (string) => wrap(string, '(', ')')
 
-const isAlphabets = string => /^[a-z]*$/.test(string)
+const isAlphabets = (string) => /^[a-z]*$/.test(string)
 
 class Placeholder {
   constructor(options) {
@@ -93,9 +93,7 @@ class Placeholder {
     const CAPTURE_SIZE = 5
     const splitRegExp = new RegExp(
       captureRegExpGroup(
-        getPlaceholderRegExpParts(this)
-          .map(captureRegExpGroup)
-          .join('')
+        getPlaceholderRegExpParts(this).map(captureRegExpGroup).join('')
       )
     )
     const texts = string.split(splitRegExp)
