@@ -12,12 +12,12 @@ const encode = (number) =>
     number
       .toString(base)
       .split('')
-      .map((digit) => digits[parseInt(digit, base)])
+      .map((digit) => digits[Number.parseInt(digit, base)])
       .join('')
   )
 
 const decode = (string) =>
-  parseInt(
+  Number.parseInt(
     string
       .split('')
       .map((digit) => digits.indexOf(digit).toString(base))
