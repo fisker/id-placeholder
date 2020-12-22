@@ -11,7 +11,7 @@ test('decode', (t) => {
 })
 
 test('verify', (t) => {
-  for (let i = 0; i < 10; i++) {
+  for (let index = 0; index < 10; index++) {
     const number = Math.floor(Math.random() * 1e8)
     const encoded = encode(number)
     t.is(encoded.length, length)
