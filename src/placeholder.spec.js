@@ -77,7 +77,7 @@ test('get()', (t) => {
   })
 
   t.is(placeholder.get(0), encode(0))
-  t.is(placeholder.get(0xdeedbeef), encode(0xdeedbeef))
+  t.is(placeholder.get(0xde_ed_be_ef), encode(0xde_ed_be_ef))
 })
 
 test('generate()', (t) => {
@@ -106,9 +106,9 @@ test('generate()', (t) => {
 
   t.deepEqual(placeholder.generate(), {
     ...placeholder,
-    index: 10002,
-    encodedIndex: encode(10002),
-    placeholder: encode(10002),
+    index: 10_002,
+    encodedIndex: encode(10_002),
+    placeholder: encode(10_002),
   })
 })
 
