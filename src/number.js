@@ -2,7 +2,7 @@ import {
   ALPHABETS as digits,
   ALPHABETS_LENGTH as base,
   FIXED_NUMBER_LENGTH as length,
-} from './constants'
+} from './constants.js'
 
 const PAD_STRING = digits[0].repeat(length)
 const toFixedLength = (string) => (PAD_STRING + string).slice(-length)

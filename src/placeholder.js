@@ -1,6 +1,6 @@
-import {FIXED_NUMBER_LENGTH, FIXED_IDENTITY_LENGTH} from './constants'
-import {encode, decode} from './number'
-import {duplicate, reverse, random, wrap} from './string'
+import {FIXED_NUMBER_LENGTH, FIXED_IDENTITY_LENGTH} from './constants.js'
+import {encode, decode} from './number.js'
+import {duplicate, reverse, random, wrap} from './string.js'
 
 const getPlaceholderRegExpParts = (placeholder) => [
   placeholder.prefix,

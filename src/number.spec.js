@@ -1,6 +1,6 @@
 import test from 'ava'
-import {FIXED_NUMBER_LENGTH as length} from './constants'
-import {encode, decode} from './number'
+import {FIXED_NUMBER_LENGTH as length} from './constants.js'
+import {encode, decode} from './number.js'
 
 test('encode', (t) => {
   t.is(encode(0), 'a'.repeat(length))

@@ -1,8 +1,8 @@
 import test from 'ava'
-import {FIXED_IDENTITY_LENGTH} from './constants'
-import {encode} from './number'
-import {duplicate, reverse} from './string'
-import Placeholder from './placeholder'
+import {FIXED_IDENTITY_LENGTH} from './constants.js'
+import {encode} from './number.js'
+import {duplicate, reverse} from './string.js'
+import Placeholder from './placeholder.js'
 
 test('alphabets check', (t) => {
   t.throws(() => new Placeholder('A'), {instanceOf: RangeError})

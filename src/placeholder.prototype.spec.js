@@ -1,5 +1,5 @@
 import test from 'ava'
-import Placeholder from './placeholder'
+import Placeholder from './placeholder.js'
 
 const placeholder = new Placeholder()
 const anotherPlaceholder = new Placeholder()

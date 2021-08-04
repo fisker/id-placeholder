@@ -1,4 +1,4 @@
-import {ALPHABETS as seed, ALPHABETS_LENGTH as length} from './constants'
+import {ALPHABETS as seed, ALPHABETS_LENGTH as length} from './constants.js'
 
 const duplicate = (string) =>
   string

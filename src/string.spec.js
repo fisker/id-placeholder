@@ -1,5 +1,5 @@
 import test from 'ava'
-import {duplicate, reverse, random, wrap} from './string'
+import {duplicate, reverse, random, wrap} from './string.js'
 
 test('duplicate', (t) => {
   t.is(duplicate('foo'), 'ffoooo')
