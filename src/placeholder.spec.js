@@ -23,13 +23,13 @@ test('options.prefix', (t) => {
     new Placeholder({
       namespace: 'fisker',
     }).prefix,
-    duplicate('fisker')
+    duplicate('fisker'),
   )
   t.is(
     new Placeholder({
       prefix: 'fisker',
     }).prefix,
-    'fisker'
+    'fisker',
   )
 })
 
@@ -40,21 +40,21 @@ test('options.suffix', (t) => {
     new Placeholder({
       namespace: 'fisker',
     }).suffix,
-    reverse(duplicate('fisker'))
+    reverse(duplicate('fisker')),
   )
 
   t.is(
     new Placeholder({
       suffix: 'fisker',
     }).suffix,
-    'fisker'
+    'fisker',
   )
 
   t.is(
     new Placeholder({
       prefix: 'fisker',
     }).suffix,
-    reverse('fisker')
+    reverse('fisker'),
   )
 })
 
@@ -65,7 +65,7 @@ test('options.identity', (t) => {
     new Placeholder({
       identity: 'fisker',
     }).identity,
-    'fisker'
+    'fisker',
   )
 })
 
@@ -151,7 +151,7 @@ test('split()', (t) => {
     t.deepEqual(
       split(fixture),
       fixture,
-      `parse failed on fixture: ${JSON.stringify(fixture)}`
+      `parse failed on fixture: ${JSON.stringify(fixture)}`,
     )
   }
 })

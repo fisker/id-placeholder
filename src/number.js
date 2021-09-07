@@ -13,7 +13,7 @@ const encode = (number) =>
       .toString(base)
       .split('')
       .map((digit) => digits[Number.parseInt(digit, base)])
-      .join('')
+      .join(''),
   )
 
 const decode = (string) =>
@@ -22,7 +22,7 @@ const decode = (string) =>
       .split('')
       .map((digit) => digits.indexOf(digit).toString(base))
       .join(''),
-    base
+    base,
   )
 
 export {digits, encode, decode, base}

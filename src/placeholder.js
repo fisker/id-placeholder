@@ -11,7 +11,7 @@ const getPlaceholderRegExpParts = (placeholder) => [
 
 const testResult = (placeholder, string, prefix, suffix) =>
   new RegExp(
-    `${prefix}${getPlaceholderRegExpParts(placeholder).join('')}${suffix}`
+    `${prefix}${getPlaceholderRegExpParts(placeholder).join('')}${suffix}`,
   ).test(string)
 
 const captureRegExpGroup = (string) => wrap(string, '(', ')')
@@ -40,7 +40,7 @@ class Placeholder {
       !isAlphabets(identity)
     ) {
       throw new RangeError(
-        'only alphabets(a-z) are allowed in `namespace`, `prefix`, `suffix` and `identity`'
+        'only alphabets(a-z) are allowed in `namespace`, `prefix`, `suffix` and `identity`',
       )
     }
 
@@ -93,8 +93,8 @@ class Placeholder {
     const CAPTURE_SIZE = 5
     const splitRegExp = new RegExp(
       captureRegExpGroup(
-        getPlaceholderRegExpParts(this).map(captureRegExpGroup).join('')
-      )
+        getPlaceholderRegExpParts(this).map(captureRegExpGroup).join(''),
+      ),
     )
     const texts = string.split(splitRegExp)
     return texts.reduce((pieces, part, index, texts) => {
