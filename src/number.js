@@ -9,20 +9,16 @@ const toFixedLength = (string) => (PAD_STRING + string).slice(-length)
 
 const encode = (number) =>
   toFixedLength(
-    number
-      .toString(base)
-      .split('')
+    [...number.toString(base)]
       .map((digit) => digits[Number.parseInt(digit, base)])
       .join(''),
   )
 
 const decode = (string) =>
   Number.parseInt(
-    string
-      .split('')
-      .map((digit) => digits.indexOf(digit).toString(base))
-      .join(''),
+    [...string].map((digit) => digits.indexOf(digit).toString(base)).join(''),
     base,
   )
 
-export {digits, encode, decode, base}
+export {encode, decode}
+export {ALPHABETS as digits, ALPHABETS_LENGTH as base} from './constants.js'
